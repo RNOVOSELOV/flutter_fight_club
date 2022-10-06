@@ -25,6 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFD5DEF0),
       body: Column(
         children: [
           SizedBox(
@@ -117,15 +118,18 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                   child: SizedBox(
                 height: 40,
-                child: ColoredBox(
-                  color: Color.fromRGBO(0, 0, 0, 0.87),
-                  child: Center(
-                    child: Text(
-                      "Go".toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16),
+                child: GestureDetector(
+                  onTap: () => makeMove(),
+                  child: ColoredBox(
+                    color: bodyPartsIsChecked() ? Color.fromRGBO(0, 0, 0, 0.87) : Color.fromRGBO(0, 0, 0, 0.38),
+                    child: Center(
+                      child: Text(
+                        "Go".toUpperCase(),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16),
+                      ),
                     ),
                   ),
                 ),
@@ -152,6 +156,19 @@ class _MyHomePageState extends State<MyHomePage> {
   void _selectAttackingBodyPart(final BodyPart value) {
     setState(() {
       attackingBodyPart = value;
+    });
+  }
+
+  bool bodyPartsIsChecked () {
+    return (attackingBodyPart != null && defendingBodyPart != null) ? true : false;
+  }
+
+  void makeMove() {
+    setState(() {
+      if (bodyPartsIsChecked()) {
+        attackingBodyPart = null;
+        defendingBodyPart = null;
+      }
     });
   }
 }
@@ -189,8 +206,9 @@ class BodyPartButton extends StatelessWidget {
       child: SizedBox(
         height: 40,
         child: ColoredBox(
-          color:
-              selected ? const Color.fromRGBO(28, 121, 206, 1) : Colors.black26,
+          color: selected
+              ? const Color.fromRGBO(28, 121, 206, 1)
+              : Color.fromRGBO(0, 0, 0, 0.38),
           child: Center(child: Text(bodyPart.name.toUpperCase())),
         ),
       ),
