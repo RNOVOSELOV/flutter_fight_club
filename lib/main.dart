@@ -46,6 +46,62 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
+          SizedBox(
+            height: 11,
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                  child: Column(children: [
+                Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                SizedBox(
+                  height: 4,
+                ),
+                    Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                SizedBox(
+                  height: 4,
+                ),
+                    Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                SizedBox(
+                  height: 4,
+                ),
+                    Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                SizedBox(
+                  height: 4,
+                ),
+                    Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+              ])),
+              SizedBox(
+                width: 12,
+              ),
+              Expanded(
+                  child: Column(children: [
+                    Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                SizedBox(
+                  height: 4,
+                ),
+                    Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                SizedBox(
+                  height: 4,
+                ),
+                    Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                SizedBox(
+                  height: 4,
+                ),
+                    Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                SizedBox(
+                  height: 4,
+                ),
+                    Text("1", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+              ])),
+              SizedBox(
+                width: 16,
+              ),
+            ],
+          ),
           Expanded(child: SizedBox()),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -73,6 +129,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       selected: defendingBodyPart == BodyPart.torso,
                       bodyPartSetter: _selectDefendingBodyPart,
                     ),
+                    SizedBox(
+                      height: 14,
+                    ),
+                    BodyPartButton(
+                      bodyPart: BodyPart.legs,
+                      selected: defendingBodyPart == BodyPart.legs,
+                      bodyPartSetter: _selectDefendingBodyPart,
+                    ),
                   ],
                 ),
               ),
@@ -98,6 +162,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       bodyPart: BodyPart.torso,
                       selected: attackingBodyPart == BodyPart.torso,
                       bodyPartSetter: _selectAttackingBodyPart,
+                    ),
+                    SizedBox(
+                      height: 14,
+                    ),
+                    BodyPartButton(
+                      bodyPart: BodyPart.legs,
+                      selected: attackingBodyPart == BodyPart.legs,
+                      bodyPartSetter: _selectAttackingBodyPart,
                     )
                   ],
                 ),
@@ -121,7 +193,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: GestureDetector(
                   onTap: () => makeMove(),
                   child: ColoredBox(
-                    color: bodyPartsIsChecked() ? Color.fromRGBO(0, 0, 0, 0.87) : Color.fromRGBO(0, 0, 0, 0.38),
+                    color: bodyPartsIsChecked()
+                        ? Color.fromRGBO(0, 0, 0, 0.87)
+                        : Color.fromRGBO(0, 0, 0, 0.38),
                     child: Center(
                       child: Text(
                         "Go".toUpperCase(),
@@ -159,8 +233,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  bool bodyPartsIsChecked () {
-    return (attackingBodyPart != null && defendingBodyPart != null) ? true : false;
+  bool bodyPartsIsChecked() {
+    return (attackingBodyPart != null && defendingBodyPart != null)
+        ? true
+        : false;
   }
 
   void makeMove() {
@@ -180,6 +256,7 @@ class BodyPart {
 
   static const head = BodyPart._("Head");
   static const torso = BodyPart._("Torso");
+  static const legs = BodyPart._("Legs");
 
   @override
   String toString() {
