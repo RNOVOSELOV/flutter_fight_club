@@ -29,10 +29,10 @@ ThemeData _buildTheme(brightness) {
 
 class MyHomePage extends StatefulWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   static const maxLives = 5;
 
   BodyPart? defendingBodyPart;
