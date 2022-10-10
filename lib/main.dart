@@ -45,6 +45,8 @@ class MyHomePageState extends State<MyHomePage> {
   int yourLives = maxLives;
   int enemiesLives = maxLives;
 
+  String resultBlockText = "The game is started!";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,9 +59,9 @@ class MyHomePageState extends State<MyHomePage> {
               yourLivesCount: yourLives,
               enemiesLivesCount: enemiesLives,
             ),
-            const Expanded(
+            Expanded(
                 child: Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 left: 16,
                 right: 16,
                 bottom: 30,
@@ -70,8 +72,8 @@ class MyHomePageState extends State<MyHomePage> {
                   color: FightClubColors.infoPanelBackgroundColor,
                   child: Center(
                       child: Text(
-                    "Text",
-                    style: TextStyle(
+                    resultBlockText,
+                    style: const TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.w400,
                     ),
@@ -118,19 +120,40 @@ class MyHomePageState extends State<MyHomePage> {
   void _onGoButtonClicked() {
     if (_gameIsOver()) {
       setState(() {
+        resultBlockText = "The game is started!";
         yourLives = maxLives;
         enemiesLives = maxLives;
       });
     } else if (_bodyPartsIsChecked()) {
       setState(() {
+        String attackString = "";
+        String enemyString = "";
         final bool enemyLooseLife = attackingBodyPart != whatEnemyDefends;
         final bool youLooseLife = defendingBodyPart != whatEnemyAttacks;
 
         if (enemyLooseLife) {
           enemiesLives--;
+          attackString =
+              "You hit enemy's ${attackingBodyPart?.name.toLowerCase()}";
+        } else {
+          attackString = "You attack was blocked.";
         }
+
         if (youLooseLife) {
           yourLives--;
+          enemyString = "Enemy hit your ${whatEnemyAttacks.name.toLowerCase()}";
+        } else {
+          enemyString = "Enemy's attack was blocked";
+        }
+
+        if (yourLives == 0 && enemiesLives == 0) {
+          resultBlockText = "Done.";
+        } else if (yourLives == 0) {
+          resultBlockText = "You lost.";
+        } else if (enemiesLives == 0) {
+          resultBlockText = "You won.";
+        } else {
+          resultBlockText = "$attackString\n$enemyString";
         }
 
         whatEnemyDefends = BodyPart._random();
@@ -175,9 +198,8 @@ class FightersInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      //    height: 160,
-      child: Row(
+    return Stack(children: [
+      Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           LivesWidget(
@@ -209,13 +231,8 @@ class FightersInfoWidget extends StatelessWidget {
               )
             ],
           ),
-          const ColoredBox(
-            color: Colors.green,
-            child: SizedBox(
-              width: 44,
-              height: 44,
-            ),
-          ),
+          SizedBox(
+              width: 44, height: 44, child: ColoredBox(color: Colors.green)),
           Column(
             children: const [
               SizedBox(
@@ -247,7 +264,7 @@ class FightersInfoWidget extends StatelessWidget {
               currentLivesCount: enemiesLivesCount),
         ],
       ),
-    );
+    ]);
   }
 }
 
@@ -371,8 +388,12 @@ class LivesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(overallLivesCount, (index) {
-        if (index < currentLivesCount) {
+      children: List.generate(overallLivesCount * 2 - 1, (index) {
+        if (index % 2 != 0) {
+          return const SizedBox(
+            height: 4,
+          );
+        } else if (index < currentLivesCount * 2 - 1) {
           return Image.asset(
             FightClubIcons.heartFull,
             width: 18,
