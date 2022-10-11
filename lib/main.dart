@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_fight_club/fight_club_colors.dart';
+import 'package:flutter_fight_club/fight_club_strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'fight_club_icons.dart';
@@ -45,7 +46,7 @@ class MyHomePageState extends State<MyHomePage> {
   int yourLives = maxLives;
   int enemiesLives = maxLives;
 
-  String resultBlockText = "The game is started!";
+  String resultBlockText = FightClubStrings.gameIsStartedInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +63,7 @@ class MyHomePageState extends State<MyHomePage> {
             Expanded(
                 child: Padding(
               padding: const EdgeInsets.only(
-                left: 16,
-                right: 16,
-                bottom: 30,
-                top: 30
-              ),
+                  left: 16, right: 16, bottom: 30, top: 30),
               child: SizedBox(
                 width: double.infinity,
                 child: ColoredBox(
@@ -92,7 +89,9 @@ class MyHomePageState extends State<MyHomePage> {
             GoButtonWidget(
               onTap: _onGoButtonClicked,
               color: _getGoButtonColor(),
-              text: _gameIsOver() ? "Start new Game" : "Go",
+              text: _gameIsOver()
+                  ? FightClubStrings.goButtonStartNewGame
+                  : FightClubStrings.goButtonMakeMove,
             ),
             const SizedBox(height: 16),
           ],
@@ -121,40 +120,32 @@ class MyHomePageState extends State<MyHomePage> {
   void _onGoButtonClicked() {
     if (_gameIsOver()) {
       setState(() {
-        resultBlockText = "The game is started!";
+        resultBlockText = FightClubStrings.gameIsStartedInfo;
         yourLives = maxLives;
         enemiesLives = maxLives;
       });
     } else if (_bodyPartsIsChecked()) {
       setState(() {
-        String attackString = "";
-        String enemyString = "";
         final bool enemyLooseLife = attackingBodyPart != whatEnemyDefends;
         final bool youLooseLife = defendingBodyPart != whatEnemyAttacks;
 
         if (enemyLooseLife) {
           enemiesLives--;
-          attackString =
-              "You hit enemy's ${attackingBodyPart?.name.toLowerCase()}";
-        } else {
-          attackString = "You attack was blocked.";
         }
 
         if (youLooseLife) {
           yourLives--;
-          enemyString = "Enemy hit your ${whatEnemyAttacks.name.toLowerCase()}";
-        } else {
-          enemyString = "Enemy's attack was blocked";
         }
 
         if (yourLives == 0 && enemiesLives == 0) {
-          resultBlockText = "Done.";
+          resultBlockText = FightClubStrings.resultDraw;
         } else if (yourLives == 0) {
-          resultBlockText = "You lost.";
+          resultBlockText = FightClubStrings.resultLost;
         } else if (enemiesLives == 0) {
-          resultBlockText = "You won.";
+          resultBlockText = FightClubStrings.resultWon;
         } else {
-          resultBlockText = "$attackString\n$enemyString";
+          resultBlockText =
+              "${_getAttackResult(enemyLooseLife)}\n${_getEnemyResult(youLooseLife)}";
         }
 
         whatEnemyDefends = BodyPart._random();
@@ -164,6 +155,20 @@ class MyHomePageState extends State<MyHomePage> {
         defendingBodyPart = null;
       });
     }
+  }
+
+  String _getAttackResult(bool enemyLooseLife) {
+    if (enemyLooseLife) {
+      return "${FightClubStrings.attackDone} ${attackingBodyPart?.name.toLowerCase()}.";
+    }
+    return FightClubStrings.attackBlocked;
+  }
+
+  String _getEnemyResult(bool youLooseLife) {
+    if (youLooseLife) {
+      return "${FightClubStrings.enemyDone} ${whatEnemyAttacks.name.toLowerCase()}.";
+    }
+    return FightClubStrings.enemyBlocked;
   }
 
   void _selectDefendingBodyPart(final BodyPart value) {
@@ -205,9 +210,16 @@ class FightersInfoWidget extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const [
-          Expanded(child: ColoredBox(color: FightClubColors.youPartBackgroundColor,)),
-          Expanded(child: ColoredBox(color: FightClubColors.enemyPartBackgroundColor,)),
-        ],),
+            Expanded(
+                child: ColoredBox(
+              color: FightClubColors.youPartBackgroundColor,
+            )),
+            Expanded(
+                child: ColoredBox(
+              color: FightClubColors.enemyPartBackgroundColor,
+            )),
+          ],
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -220,7 +232,7 @@ class FightersInfoWidget extends StatelessWidget {
                   height: 16,
                 ),
                 Text(
-                  "You",
+                  FightClubStrings.captionYou,
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -245,7 +257,7 @@ class FightersInfoWidget extends StatelessWidget {
                   height: 16,
                 ),
                 Text(
-                  "Enemy",
+                  FightClubStrings.captionEnemy,
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -297,7 +309,7 @@ class ControlsWidget extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              Text("Defend".toUpperCase(),
+              Text(FightClubStrings.captionDefend.toUpperCase(),
                   style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -335,7 +347,7 @@ class ControlsWidget extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              Text("Attack".toUpperCase(),
+              Text(FightClubStrings.captionAttack.toUpperCase(),
                   style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -458,9 +470,9 @@ class BodyPart {
 
   const BodyPart._(this.name);
 
-  static const head = BodyPart._("Head");
-  static const torso = BodyPart._("Torso");
-  static const legs = BodyPart._("Legs");
+  static const head = BodyPart._(FightClubStrings.captionHeadButton);
+  static const torso = BodyPart._(FightClubStrings.captionTorsoButton);
+  static const legs = BodyPart._(FightClubStrings.captionLegsButton);
 
   @override
   String toString() {
