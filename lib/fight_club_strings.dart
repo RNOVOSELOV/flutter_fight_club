@@ -11,7 +11,7 @@ class FightClubStrings {
   static const String enemyBlocked = "Enemy's attack was blocked.";
   static const String enemyDone = "Enemy hit your";
 
-  static const String resultDraw = "Done.";
+  static const String resultDraw = "Draw.";
   static const String resultWon = "You won.";
   static const String resultLost = "You lost.";
 

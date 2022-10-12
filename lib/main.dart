@@ -159,7 +159,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   String _getAttackResult(bool enemyLooseLife) {
     if (enemyLooseLife) {
-      return "${FightClubStrings.attackDone} ${attackingBodyPart?.name.toLowerCase()}.";
+      return "${FightClubStrings.attackDone} ${attackingBodyPart!.name.toLowerCase()}.";
     }
     return FightClubStrings.attackBlocked;
   }
