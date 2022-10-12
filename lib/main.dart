@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_fight_club/fight_club_colors.dart';
 import 'package:flutter_fight_club/fight_club_images.dart';
-import 'package:flutter_fight_club/fight_club_strings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'fight_club_icons.dart';
@@ -47,7 +46,7 @@ class MyHomePageState extends State<MyHomePage> {
   int yourLives = maxLives;
   int enemiesLives = maxLives;
 
-  String resultBlockText = FightClubStrings.gameIsStartedInfo;
+  String resultBlockText = FightClubColors.gameIsStartedInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -92,8 +91,8 @@ class MyHomePageState extends State<MyHomePage> {
               onTap: _onGoButtonClicked,
               color: _getGoButtonColor(),
               text: _gameIsOver()
-                  ? FightClubStrings.goButtonStartNewGame
-                  : FightClubStrings.goButtonMakeMove,
+                  ? FightClubColors.goButtonStartNewGame
+                  : FightClubColors.goButtonMakeMove,
             ),
             const SizedBox(height: 16),
           ],
@@ -122,7 +121,7 @@ class MyHomePageState extends State<MyHomePage> {
   void _onGoButtonClicked() {
     if (_gameIsOver()) {
       setState(() {
-        resultBlockText = FightClubStrings.gameIsStartedInfo;
+        resultBlockText = FightClubColors.gameIsStartedInfo;
         yourLives = maxLives;
         enemiesLives = maxLives;
       });
@@ -140,11 +139,11 @@ class MyHomePageState extends State<MyHomePage> {
         }
 
         if (yourLives == 0 && enemiesLives == 0) {
-          resultBlockText = FightClubStrings.resultDraw;
+          resultBlockText = FightClubColors.resultDraw;
         } else if (yourLives == 0) {
-          resultBlockText = FightClubStrings.resultLost;
+          resultBlockText = FightClubColors.resultLost;
         } else if (enemiesLives == 0) {
-          resultBlockText = FightClubStrings.resultWon;
+          resultBlockText = FightClubColors.resultWon;
         } else {
           resultBlockText =
               "${_getAttackResult(enemyLooseLife)}\n${_getEnemyResult(youLooseLife)}";
@@ -161,16 +160,16 @@ class MyHomePageState extends State<MyHomePage> {
 
   String _getAttackResult(bool enemyLooseLife) {
     if (enemyLooseLife) {
-      return "${FightClubStrings.attackDone} ${attackingBodyPart!.name.toLowerCase()}.";
+      return "${FightClubColors.attackDone} ${attackingBodyPart!.name.toLowerCase()}.";
     }
-    return FightClubStrings.attackBlocked;
+    return FightClubColors.attackBlocked;
   }
 
   String _getEnemyResult(bool youLooseLife) {
     if (youLooseLife) {
-      return "${FightClubStrings.enemyDone} ${whatEnemyAttacks.name.toLowerCase()}.";
+      return "${FightClubColors.enemyDone} ${whatEnemyAttacks.name.toLowerCase()}.";
     }
-    return FightClubStrings.enemyBlocked;
+    return FightClubColors.enemyBlocked;
   }
 
   void _selectDefendingBodyPart(final BodyPart value) {
@@ -236,7 +235,7 @@ class FightersInfoWidget extends StatelessWidget {
                   height: 16,
                 ),
                 const Text(
-                  FightClubStrings.captionYou,
+                  FightClubColors.captionYou,
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -258,7 +257,7 @@ class FightersInfoWidget extends StatelessWidget {
                   height: 16,
                 ),
                 const Text(
-                  FightClubStrings.captionEnemy,
+                  FightClubColors.captionEnemy,
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -308,7 +307,7 @@ class ControlsWidget extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              Text(FightClubStrings.captionDefend.toUpperCase(),
+              Text(FightClubColors.captionDefend.toUpperCase(),
                   style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -346,7 +345,7 @@ class ControlsWidget extends StatelessWidget {
         Expanded(
           child: Column(
             children: [
-              Text(FightClubStrings.captionAttack.toUpperCase(),
+              Text(FightClubColors.captionAttack.toUpperCase(),
                   style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -469,9 +468,9 @@ class BodyPart {
 
   const BodyPart._(this.name);
 
-  static const head = BodyPart._(FightClubStrings.captionHeadButton);
-  static const torso = BodyPart._(FightClubStrings.captionTorsoButton);
-  static const legs = BodyPart._(FightClubStrings.captionLegsButton);
+  static const head = BodyPart._(FightClubColors.captionHeadButton);
+  static const torso = BodyPart._(FightClubColors.captionTorsoButton);
+  static const legs = BodyPart._(FightClubColors.captionLegsButton);
 
   @override
   String toString() {
