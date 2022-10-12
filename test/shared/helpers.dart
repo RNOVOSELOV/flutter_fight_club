@@ -17,14 +17,3 @@ class OneOrAnotherMatcher extends Matcher {
   @override
   bool matches(Object? item, Map matchState) => item == _one || item == _another;
 }
-
-Finder findTypeByTextOnlyInParentType(
-  final Type type,
-  final String text,
-  final Type parentType,
-) {
-  return find.descendant(
-    of: find.byType(parentType),
-    matching: find.ancestor(of: find.text(text), matching: find.byType(type)),
-  );
-}
