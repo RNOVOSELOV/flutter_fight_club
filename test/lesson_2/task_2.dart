@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_fight_club/fight_club_colors.dart';
+import 'package:flutter_fight_club/resources/fight_club_colors.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../shared/helpers.dart';
@@ -49,7 +49,7 @@ void runTestLesson2Task2() {
     );
 
     expect(
-      FightClubColors.whiteText,
+      FightClubColors.whiteText87,
       isOneOrAnother(Color(0xDDFFFFFF), Color(0xDEFFFFFF)),
     );
   });
