@@ -17,6 +17,10 @@ class FightClubColors {
   static const whiteText87 = Color.fromRGBO(255, 255, 255, 0.87);
   static const whiteText = Color.fromRGBO(255, 255, 255, 1);
 
+  static const wonColor = Color.fromRGBO(3, 136, 0, 1);
+  static const lostColor = Color.fromRGBO(234, 44, 44, 1);
+  static const drawColor = blueButton;
+
   static const String gameIsStartedInfo = "The game is started!";
 
   static const String endGame = "Back";

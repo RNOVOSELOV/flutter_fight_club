@@ -1,3 +1,6 @@
+import 'package:flutter/rendering.dart';
+import 'package:flutter_fight_club/resources/fight_club_colors.dart';
+
 class FightResult {
   final String result;
 
@@ -16,6 +19,18 @@ class FightResult {
       return won;
     }
     return null;
+  }
+
+  static Color getColor (FightResult result) {
+    switch (result) {
+      case FightResult.lost:
+        return FightClubColors.lostColor;
+      case FightResult.won:
+        return FightClubColors.wonColor;
+      case FightResult.draw:
+      default:
+        return FightClubColors.drawColor;
+    }
   }
 
   @override
