@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fight_club/pages/fight_page.dart';
 import 'package:flutter_fight_club/resources/fight_club_colors.dart';
 import 'package:flutter_fight_club/widgets/action_button.dart';
+import 'package:flutter_fight_club/widgets/secondary_action_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends StatelessWidget {
@@ -45,20 +46,8 @@ class _MainPageContext extends StatelessWidget {
             },
           ),
           const Expanded(child: SizedBox()),
-          Container(
-            height: 44,
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-                border: Border.all(
-              color: FightClubColors.darkGreyText,
-              width: 2,
-            )),
-            child: Text(
-              "Statistics".toUpperCase(),
-              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
-            ),
-          ),
+          SecondaryActionButton(text: 'Statistics', onTap: () { print("Hello world!"); },),
+
           const SizedBox(
             height: 12,
           ),
