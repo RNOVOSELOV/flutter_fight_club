@@ -11,17 +11,20 @@ class StatisticsPage extends StatelessWidget {
       backgroundColor: FightClubColors.background,
       body: SafeArea (child: Column(
         children: [
-          const SizedBox(height: 24,),
-          const Center(
-            child: Text("Statistics", textAlign: TextAlign.center, style:
+          Container(
+            margin: const EdgeInsets.only(top: 24),
+            alignment: Alignment.center,
+            child: const Text("Statistics", textAlign: TextAlign.center, style:
               TextStyle (
                 fontWeight: FontWeight.w400,
                 fontSize: 24,
               ),),
           ),
           const Expanded(child: SizedBox()),
-          SecondaryActionButton(text: "Back", onTap: () {Navigator.of(context).pop();}),
-          SizedBox(height: 16,)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: SecondaryActionButton(text: "Back", onTap: () {Navigator.of(context).pop();}),
+          ),
         ],
       ),
 
