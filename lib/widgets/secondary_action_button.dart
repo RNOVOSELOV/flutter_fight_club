@@ -6,7 +6,9 @@ class SecondaryActionButton extends StatelessWidget {
   final VoidCallback onTap;
 
   const SecondaryActionButton({
-    Key? key, required this.text, required this.onTap,
+    Key? key,
+    required this.text,
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -14,17 +16,20 @@ class SecondaryActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 44,
+        height: 40,
         margin: const EdgeInsets.symmetric(horizontal: 16),
         alignment: Alignment.center,
         decoration: BoxDecoration(
             border: Border.all(
-              color: FightClubColors.darkGreyText,
-              width: 2,
-            )),
+          color: FightClubColors.darkGreyText,
+          width: 2,
+        )),
         child: Text(
           text.toUpperCase(),
-          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+          style: const TextStyle(
+              fontSize: 13,
+              color: FightClubColors.darkGreyText,
+              fontWeight: FontWeight.w400),
         ),
       ),
     );

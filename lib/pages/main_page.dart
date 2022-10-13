@@ -44,17 +44,14 @@ class _MainPageContext extends StatelessWidget {
                 return const SizedBox();
               }
               return Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom:12),
-                    child: Center(
-                      child: Text("Last fight result", textAlign: TextAlign.center, style: TextStyle (
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ),),
-                    ),
-                  ),
-                  FightResultWidget(result: getFightResult(snapshot.data!),),
+                  const Text("Last fight result", textAlign: TextAlign.center, style: TextStyle (
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),),
+                  const SizedBox(height: 12,),
+                  FightResultWidget(result: FightResult.getFightResultByName(snapshot.data!),),
                 ],
               );
             },
@@ -86,18 +83,4 @@ class _MainPageContext extends StatelessWidget {
       ),
     );
   }
-
-  FightResult? getFightResult(String s) {
-    switch (s) {
-      case "Lost":
-        return FightResult.lost;
-      case "Won":
-        return FightResult.won;
-      case "Draw":
-        return FightResult.draw;
-      default:
-        return null;
-    }
-  }
-  
 }

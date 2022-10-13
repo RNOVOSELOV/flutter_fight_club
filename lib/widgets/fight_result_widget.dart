@@ -4,7 +4,8 @@ import 'package:flutter_fight_club/resources/fight_club_colors.dart';
 import 'package:flutter_fight_club/resources/fight_club_images.dart';
 
 class FightResultWidget extends StatelessWidget {
-  final FightResult? result;
+  final FightResult result;
+
   const FightResultWidget({super.key, required this.result});
 
   @override
@@ -17,29 +18,30 @@ class FightResultWidget extends StatelessWidget {
           children: const [
             Expanded(
                 child: ColoredBox(
-                  color: FightClubColors.youPartBackgroundColor,
-                )),
+              color: FightClubColors.youPartBackgroundColor,
+            )),
             Expanded(
                 child: DecoratedBox(
                     decoration: BoxDecoration(
                         gradient: LinearGradient(colors: [
-                          FightClubColors.youPartBackgroundColor,
-                          FightClubColors.enemyPartBackgroundColor
-                        ])))),
+              FightClubColors.youPartBackgroundColor,
+              FightClubColors.enemyPartBackgroundColor
+            ])))),
             Expanded(
                 child: ColoredBox(
-                  color: FightClubColors.enemyPartBackgroundColor,
-                )),
+              color: FightClubColors.enemyPartBackgroundColor,
+            )),
           ],
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            const SizedBox(
+              width: 8,
+            ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 12,
-                ),
                 const Text(
                   FightClubColors.captionYou,
                   style: TextStyle(
@@ -57,31 +59,25 @@ class FightResultWidget extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
-                height: 44,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(22),
-                    color: FightResult.getColor(result!),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                    child: Center(
-                      child: Text(
-                        result!.result.toLowerCase(),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            color: FightClubColors.whiteText, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                )),
+            Container(
+              height: 44,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(22),
+                color: result.color,
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+              alignment: Alignment.center,
+              child: Text(
+                result.result.toLowerCase(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    color: FightClubColors.whiteText, fontSize: 16),
+              ),
+            ),
             Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 12,
-                ),
                 const Text(
                   FightClubColors.captionEnemy,
                   style: TextStyle(
@@ -99,10 +95,12 @@ class FightResultWidget extends StatelessWidget {
                 )
               ],
             ),
+            const SizedBox(
+              width: 8,
+            ),
           ],
         ),
       ]),
     );
   }
-
 }
