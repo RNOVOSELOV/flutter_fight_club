@@ -45,6 +45,23 @@ class _MainPageContext extends StatelessWidget {
             },
           ),
           const Expanded(child: SizedBox()),
+          Container(
+            height: 44,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                border: Border.all(
+              color: FightClubColors.darkGreyText,
+              width: 2,
+            )),
+            child: Text(
+              "Statistics".toUpperCase(),
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
+            ),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
           ActionButton(
             text: "Start".toUpperCase(),
             onTap: () {
