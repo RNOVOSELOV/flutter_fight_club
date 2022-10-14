@@ -11,9 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^3.0.1
+  google_fonts: ^2.1.0
 
 dev_dependencies:
+  crypto: ^3.0.1
   flutter_test:
     sdk: flutter
 

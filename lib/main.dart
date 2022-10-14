@@ -15,12 +15,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: _buildTheme(Brightness.light),
+      //theme: _buildTheme(Brightness.light),
+      theme: ThemeData(
+          textTheme: GoogleFonts.pressStart2pTextTheme(
+        Theme.of(context).textTheme,
+      )),
       home: MyHomePage(),
     );
   }
 }
 
+/*
 ThemeData _buildTheme(brightness) {
   var baseTheme = ThemeData(brightness: brightness);
 
@@ -28,7 +33,7 @@ ThemeData _buildTheme(brightness) {
     textTheme: GoogleFonts.pressStart2pTextTheme(baseTheme.textTheme),
   );
 }
-
+*/
 class MyHomePage extends StatefulWidget {
   @override
   State<MyHomePage> createState() => MyHomePageState();
@@ -191,7 +196,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 }
 
-typedef  FightersInfo = FightersInfoWidget;
+typedef FightersInfo = FightersInfoWidget;
 
 class FightersInfoWidget extends StatelessWidget {
   final int maxLivesCount;
@@ -244,9 +249,11 @@ class FightersInfoWidget extends StatelessWidget {
                 const SizedBox(
                   height: 12,
                 ),
-                Image.asset(FightClubImages.youAvatar,
-                width: 92,
-                height: 92,),
+                Image.asset(
+                  FightClubImages.youAvatar,
+                  width: 92,
+                  height: 92,
+                ),
               ],
             ),
             const SizedBox(
@@ -266,7 +273,8 @@ class FightersInfoWidget extends StatelessWidget {
                 const SizedBox(
                   height: 12,
                 ),
-                Image.asset(FightClubImages.enemyAvatar,
+                Image.asset(
+                  FightClubImages.enemyAvatar,
                   height: 92,
                   width: 92,
                 )
