@@ -1,6 +1,6 @@
 # The fight club - simple fighting game
 
-<img src="https://github.com/RNOVOSELOV/flutter_fight_club/blob/main/resources/fc.gif"  width="105" height="210" />
+<img src="https://github.com/RNOVOSELOV/flutter_fight_club/blob/main/resources/fc.gif"  width="210" height="420" />
 
 ## О проекте
 
