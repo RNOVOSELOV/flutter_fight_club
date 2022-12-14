@@ -11,8 +11,9 @@ class FightResult {
   static const lost = FightResult._("Lost", FightClubColors.lostColor);
   static const draw = FightResult._("Draw", FightClubColors.drawColor);
 
-  static FightResult? calculateResult (final int yourLives, final int enemiesLives) {
-    if (yourLives ==0 && enemiesLives == 0) {
+  static FightResult? calculateResult(
+      final int yourLives, final int enemiesLives) {
+    if (yourLives == 0 && enemiesLives == 0) {
       return draw;
     } else if (yourLives == 0) {
       return lost;

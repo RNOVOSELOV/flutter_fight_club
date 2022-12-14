@@ -17,7 +17,20 @@ class MainPage extends StatelessWidget {
   }
 }
 
-class _MainPageContext extends StatelessWidget {
+class _MainPageContext extends StatefulWidget {
+  @override
+  State<_MainPageContext> createState() => _MainPageContextState();
+}
+
+class _MainPageContextState extends State<_MainPageContext> {
+  late FightResult? fightResult;
+
+  @override
+  void initState() {
+    super.initState();
+    fightResult = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,15 +56,24 @@ class _MainPageContext extends StatelessWidget {
               if (!snapshot.hasData || snapshot.data == null) {
                 return const SizedBox();
               }
+              fightResult = FightResult.getFightResultByName(snapshot.data!);
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text("Last fight result", textAlign: TextAlign.center, style: TextStyle (
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                  ),),
-                  const SizedBox(height: 12,),
-                  FightResultWidget(result: FightResult.getFightResultByName(snapshot.data!),),
+                  const Text(
+                    "Last fight result",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  FightResultWidget(
+                    result: fightResult!,
+                  ),
                 ],
               );
             },
@@ -69,10 +91,15 @@ class _MainPageContext extends StatelessWidget {
           ),
           ActionButton(
             text: "Start".toUpperCase(),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => FightPage(),
-              ));
+            onTap: () async {
+              final result = await Navigator.push<FightResult>(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FightPage(),
+                  ));
+              setState(() {
+                fightResult = result;
+              });
             },
             color: FightClubColors.blackButton,
           ),

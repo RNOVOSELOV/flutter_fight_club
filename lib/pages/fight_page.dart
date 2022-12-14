@@ -27,6 +27,14 @@ class FightPageState extends State<FightPage> {
 
   String resultBlockText = FightClubColors.gameIsStartedInfo;
 
+  late FightResult? result;
+
+  @override
+  void initState() {
+    super.initState();
+    result = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,24 +49,24 @@ class FightPageState extends State<FightPage> {
             ),
             Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, bottom: 30, top: 30),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ColoredBox(
-                      color: FightClubColors.infoPanelBackgroundColor,
-                      child: Center(
-                          child: Text(
-                            resultBlockText,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          )),
+              padding: const EdgeInsets.only(
+                  left: 16, right: 16, bottom: 30, top: 30),
+              child: SizedBox(
+                width: double.infinity,
+                child: ColoredBox(
+                  color: FightClubColors.infoPanelBackgroundColor,
+                  child: Center(
+                      child: Text(
+                    resultBlockText,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w400,
                     ),
-                  ),
-                )),
+                  )),
+                ),
+              ),
+            )),
             ControlsWidget(
               defendingBodyPart: defendingBodyPart,
               selectDefendingBodyPart: _selectDefendingBodyPart,
@@ -100,7 +108,7 @@ class FightPageState extends State<FightPage> {
   void _onGoButtonClicked() {
     if (_gameIsOver()) {
       setState(() {
-        Navigator.of(context).pop();
+        Navigator.pop(context, result);
       });
     } else if (_bodyPartsIsChecked()) {
       setState(() {
@@ -116,8 +124,9 @@ class FightPageState extends State<FightPage> {
         }
 
         final FightResult? fightResult =
-        FightResult.calculateResult(yourLives, enemiesLives);
+            FightResult.calculateResult(yourLives, enemiesLives);
         if (fightResult != null) {
+          result = fightResult;
           SharedPreferences.getInstance().then((sharedPreferences) {
             sharedPreferences.setString(
                 "last_fight_result", fightResult.result);
@@ -128,10 +137,9 @@ class FightPageState extends State<FightPage> {
           });
 
           SharedPreferences.getInstance().then((spGetValue) {
-            SharedPreferences.getInstance().then((spSetValue) =>
-            {
-             // spSetValue.setInt(spTag, spGetValue.getInt(spTag)!;)
-            });
+            SharedPreferences.getInstance().then((spSetValue) => {
+                  // spSetValue.setInt(spTag, spGetValue.getInt(spTag)!;)
+                });
           });
         }
 
@@ -144,8 +152,8 @@ class FightPageState extends State<FightPage> {
     }
   }
 
-  String _calculateResultText(final bool youLooseLife,
-      final bool enemyLooseLife) {
+  String _calculateResultText(
+      final bool youLooseLife, final bool enemyLooseLife) {
     if (yourLives == 0 && enemiesLives == 0) {
       return FightClubColors.resultDraw;
     } else if (yourLives == 0) {
@@ -153,23 +161,20 @@ class FightPageState extends State<FightPage> {
     } else if (enemiesLives == 0) {
       return FightClubColors.resultWon;
     } else {
-      return "${_getAttackResult(enemyLooseLife)}\n${_getEnemyResult(
-          youLooseLife)}";
+      return "${_getAttackResult(enemyLooseLife)}\n${_getEnemyResult(youLooseLife)}";
     }
   }
 
   String _getAttackResult(bool enemyLooseLife) {
     if (enemyLooseLife) {
-      return "${FightClubColors.attackDone} ${attackingBodyPart!.name
-          .toLowerCase()}.";
+      return "${FightClubColors.attackDone} ${attackingBodyPart!.name.toLowerCase()}.";
     }
     return FightClubColors.attackBlocked;
   }
 
   String _getEnemyResult(bool youLooseLife) {
     if (youLooseLife) {
-      return "${FightClubColors.enemyDone} ${whatEnemyAttacks.name
-          .toLowerCase()}.";
+      return "${FightClubColors.enemyDone} ${whatEnemyAttacks.name.toLowerCase()}.";
     }
     return FightClubColors.enemyBlocked;
   }
@@ -217,19 +222,19 @@ class FightersInfoWidget extends StatelessWidget {
           children: const [
             Expanded(
                 child: ColoredBox(
-                  color: FightClubColors.youPartBackgroundColor,
-                )),
+              color: FightClubColors.youPartBackgroundColor,
+            )),
             Expanded(
                 child: DecoratedBox(
                     decoration: BoxDecoration(
                         gradient: LinearGradient(colors: [
-                          FightClubColors.youPartBackgroundColor,
-                          FightClubColors.enemyPartBackgroundColor
-                        ])))),
+              FightClubColors.youPartBackgroundColor,
+              FightClubColors.enemyPartBackgroundColor
+            ])))),
             Expanded(
                 child: ColoredBox(
-                  color: FightClubColors.enemyPartBackgroundColor,
-                )),
+              color: FightClubColors.enemyPartBackgroundColor,
+            )),
           ],
         ),
         Row(
@@ -315,11 +320,12 @@ class ControlsWidget extends StatelessWidget {
   final BodyPart? attackingBodyPart;
   final ValueSetter<BodyPart> selectAttackingBodyPart;
 
-  const ControlsWidget({Key? key,
-    required this.defendingBodyPart,
-    required this.selectDefendingBodyPart,
-    required this.attackingBodyPart,
-    required this.selectAttackingBodyPart})
+  const ControlsWidget(
+      {Key? key,
+      required this.defendingBodyPart,
+      required this.selectDefendingBodyPart,
+      required this.attackingBodyPart,
+      required this.selectAttackingBodyPart})
       : super(key: key);
 
   @override
@@ -419,8 +425,7 @@ class LivesWidget extends StatelessWidget {
     Key? key,
     required this.overallLivesCount,
     required this.currentLivesCount,
-  })
-      : assert(overallLivesCount >= 1),
+  })  : assert(overallLivesCount >= 1),
         assert(currentLivesCount >= 0),
         assert(currentLivesCount <= overallLivesCount),
         super(key: key);
@@ -472,9 +477,7 @@ class BodyPart {
 
   static BodyPart _random() {
     return _values[
-    Random(DateTime
-        .now()
-        .millisecondsSinceEpoch).nextInt(_values.length)];
+        Random(DateTime.now().millisecondsSinceEpoch).nextInt(_values.length)];
   }
 }
 
