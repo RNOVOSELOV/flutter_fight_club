@@ -92,14 +92,16 @@ class _MainPageContextState extends State<_MainPageContext> {
           ActionButton(
             text: "Start".toUpperCase(),
             onTap: () async {
-              final result = await Navigator.push<FightResult>(
+              final result = await Navigator.push<FightResult?>(
                   context,
                   MaterialPageRoute(
                     builder: (context) => FightPage(),
                   ));
-              setState(() {
-                fightResult = result;
-              });
+              if (result != null) {
+                setState(() {
+                  fightResult = result;
+                });
+              }
             },
             color: FightClubColors.blackButton,
           ),
