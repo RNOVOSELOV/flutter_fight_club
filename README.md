@@ -1,4 +1,4 @@
-# [<img src="https://storage.googleapis.com/cms-storage-bucket/6a07d8a62f4308d2b854.svg"  width="80">](https://flutter.dev/)    The fight club - simple fighting game
+# [<img src="https://storage.googleapis.com/cms-storage-bucket/6a07d8a62f4308d2b854.svg"  width="65">](https://flutter.dev/) &nbsp;The fight club - simple fighting game
  
 <br/>
 
