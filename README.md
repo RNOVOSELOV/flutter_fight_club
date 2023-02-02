@@ -2,7 +2,9 @@
  
 <br/>
 
-<img src="https://github.com/RNOVOSELOV/flutter_fight_club/blob/main/resources/fc.gif"  width="210" height="420" />
+<p align="center">
+  <img src="https://github.com/RNOVOSELOV/flutter_fight_club/blob/main/resources/fc.gif"  width="210" height="420" />
+</p>
 
 ## О проекте
 
